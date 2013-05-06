@@ -31,7 +31,7 @@
                     <ul class="nav">
                       <li ><a href="adminClass">班级管理</a></li>
                       <li ><a href="adminTeacherInfo">教师管理</a></li>
-                     
+                     <li ><a href="adminCourse">课程管理</a></li>
                     </ul>
                     
                     <ul class="nav pull-right">
@@ -135,6 +135,18 @@
   			$("#code").show();
   		}else if(c=='updateteacher_success'){
   			$("#code").children("strong").text("更新教师成功");
+  			$("#code").show();
+  		}else if(c=='addcourse_success'){
+  			$("#code").children("strong").text("添加课程成功");
+  			$("#code").show();
+  		}else if(c=='addcourse_fail'){
+  			$("#code").children("strong").text("添加课程失败");
+  			$("#code").show();
+  		}else if(c=='updatecourse_success'){
+  			$("#code").children("strong").text("更新课程成功");
+  			$("#code").show();
+  		}else if(c=='updatecourse_fail'){
+  			$("#code").children("strong").text("更新课程失败");
   			$("#code").show();
   		}
   		

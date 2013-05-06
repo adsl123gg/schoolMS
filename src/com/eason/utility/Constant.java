@@ -30,6 +30,11 @@ public interface Constant {
 	public final String UPDATEADMINPWD_SUCCESS="updateadminpwd_success";
 	public final String UPDATEADMINPWD_FAIL="updateadminpwd_fail";
 	
-	
+	public final String ADDCOURSE_SUCCESS="addcourse_success";
+	public final String ADDCOURSE_FAIL="addcourse_fail";
+	public final String UPDATECOURSE_SUCCESS="updatecourse_success";
+	public final String UPDATECOURSE_FAIL="updatecourse_fail";
+	public final String DELETECOURSE_SUCCESS="deletecourse_success";
+	public final String DELETECOURSE_FAIL="deletecourse_fail";
 	
 }

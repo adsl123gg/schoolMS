@@ -159,7 +159,7 @@
 					  function(rs){
 					  alert(rs);
 					    if(rs=="deleteclass_success"){
-					    	$(obj).parent().remove();
+					    	$(obj).parent().parent().parent().remove();
 					    	$("#code").children("strong").text(classname+"删除班级成功！");
 					    	$("#code").show();
 					    }else if(rs=="deleteclass_fail"){

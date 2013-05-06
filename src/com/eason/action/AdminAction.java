@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.eason.pojo.Admin;
 import com.eason.pojo.Class;
+import com.eason.pojo.Course;
 import com.eason.pojo.Student;
 import com.eason.pojo.Teacher;
 import com.eason.service.AdminService;
 import com.eason.service.ClassService;
+import com.eason.service.CourseService;
 import com.eason.service.StudentService;
 import com.eason.service.TeacherService;
 import com.eason.utility.Time;
@@ -29,6 +31,7 @@ public class AdminAction extends BaseAction{
 	private TeacherService teacherService;
 	private StudentService studentService;
 	private ClassService classService;
+	private CourseService courseService;
 	
 	private Teacher teacher;
 	private Student student;
@@ -40,6 +43,7 @@ public class AdminAction extends BaseAction{
 	private List<Class> clazzs;
 	private List<Teacher> teachers;
 	private List<Student> students;
+	private List<Course> courses;
 	private Class clazz;
 	private String classid;
 	private String studentid;
@@ -72,6 +76,14 @@ public class AdminAction extends BaseAction{
 		students=studentService.findByClass(classid);
 		return SUCCESS;
 	}
+	
+	@Action(value="adminCourse",results={@Result(location="/WEB-INF/content/admin_course.jsp")})
+	public  String adminCourse(){
+		teachers=teacherService.findAll();
+		courses=courseService.findAll();
+		return SUCCESS;
+	}
+	
 	
 	@Action(value="adminExit",results={@Result(type="redirectAction",params={"actionName","index"})})
 	public String adminExit() throws Exception {
@@ -494,6 +506,19 @@ public class AdminAction extends BaseAction{
 
 	public void setTeacherid(String teacherid) {
 		this.teacherid = teacherid;
+	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+	@Autowired
+	public void setCourseService(CourseService courseService) {
+		this.courseService = courseService;
 	}
 
 }

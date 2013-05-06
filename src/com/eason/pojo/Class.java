@@ -2,6 +2,7 @@ package com.eason.pojo;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -37,7 +39,7 @@ public class Class {
 	public void setClassname(String classname) {
 		this.classname = classname;
 	}
-	@OneToMany(mappedBy="clazz")
+	@OneToMany(mappedBy="clazz",cascade={CascadeType.REMOVE})
 	public Set<Student> getStudentSet() {
 		return studentSet;
 	}

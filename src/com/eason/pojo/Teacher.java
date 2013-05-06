@@ -1,9 +1,13 @@
 package com.eason.pojo;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -25,6 +29,7 @@ public class Teacher {
 	private String intime;
 	private String school;
 	private String education;
+	private Set<Course> courseSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -98,4 +103,13 @@ public class Teacher {
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
+
+	@OneToMany(mappedBy="teacher",cascade={CascadeType.REMOVE})
+	public Set<Course> getCourseSet() {
+		return courseSet;
+	}
+	public void setCourseSet(Set<Course> courseSet) {
+		this.courseSet = courseSet;
+	}
+	
 }
