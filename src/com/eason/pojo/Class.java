@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +24,7 @@ public class Class {
 	private String id;
 	private String classname;
 	private Set<Student> studentSet;
+	private Set<Course> courseSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -54,6 +56,14 @@ public class Class {
 	}
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+	
+	@ManyToMany(mappedBy="classSet")
+	public Set<Course> getCourseSet() {
+		return courseSet;
+	}
+	public void setCourseSet(Set<Course> courseSet) {
+		this.courseSet = courseSet;
 	}
 	
 }

@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="./teacher_head.jsp" %>
+<%@ include file="./admin_head.jsp" %>
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>教师代课课程</title>
+	<title>学生课程</title>
 	
 </head>
 <body class="container">
@@ -111,47 +111,68 @@
     </div>
     
     <table class="table table-striped">
-	  <thead>
+	        <thead>
+          <tr>
+            <th colspan=6><strong ><h5>设定${clazz.classname}的课程</h5></strong></th>
+            <th>
+            	<form action="saveClassCourse" method="post" id="saveCourseForm">
+            		<input type="hidden" name="classcourse" id="classcourse">
+            		<input type="hidden" name="classid" value="${clazz.id}">
+            	</form>
+            	<button class="btn btn-primary" id="saveCourse">保存课表</button>
+            </th>
+          </tr>
 		  <tr>
 				<td>课程名称</td>
-				<td>上课班级</td>
+				<td>任课教师</td>
 				<td>上课地点</td>
+				<td>上课时间</td>
 				<td>学分</td>
 				<td>属性</td>
 			</tr>
         </thead>
         <tbody>
-        	<c:forEach items="${teacherCourses }" var="course">
+        	<c:forEach items="${courses }" var="course">
         		<tr>
 					<td>${course.coursename }</td>
-					<td>
-						<%-- ${fn:length(course.classSet)} --%>
-						<select style="width:120px">
-							<c:forEach items="${course.classSet }" var ="c">
-								<option>${c.classname}</option>
-									<%-- <c:if test="${fn:length(course.classSet)=='0'}">
-										<option>未分配班级</option>
-									</c:if> --%>
-							</c:forEach>
-						</select>
-					</td>
+					<td>${course.teacher.name }</td>
 					<td>${course.address }</td>
+					<td ref="${course.time}">
+						<select style="width:130px">
+							<c:forTokens items="${course.time}" delims="&&" var="t">
+								<c:if test="${not empty t }">
+									<option>${t}</option>
+								</c:if>
+							</c:forTokens>
+						</select>
+						
+					</td>
 					<td>${course.credit }</td>
 					<td>${course.property }</td>
+					<td><a class="btn btn-success" onclick="setCourse(this)" ref="${course.id}" href="javascript:;">设定</a></td>
 				</tr>
         	</c:forEach>
         </tbody>
       </table>
-    
-    <div type="hidden" id="showCourseFrom">
-      	<c:forEach items="${teacherCourses}" var ="s">
+      
+      <div type="hidden" id="from">
+      	<c:forEach items="${classcourseset}" var ="s">
       		<input type="hidden" courseid="${s.id }" coursetime="${s.time}" coursename="${s.coursename}"/>
       	</c:forEach>
-   </div>
-    
-    <script type="text/javascript">
+      </div>
+      
+      <script type="text/javascript">
       	$(document).ready(function(){
-      		showCourse($("#showCourseFrom"));
+      		
+      		$("#saveCourse").click(function(){
+      			/* if($("#classcourse").val().trim()!=""){
+      				$("#saveCourseForm").submit();
+      			} */
+      			$("#saveCourseForm").submit();
+      		});
+      		
+      		
+      		showCourse($("#from"));
       	});
       	
       	function showCourse(obj){
@@ -175,6 +196,40 @@
 	      			$("#"+r).parent().children("td").eq(index+s).text(coursename);
 	      			$("#classcourse").val($("#classcourse").val()+id+";");
 	      		}
+      		}
+      		
+      	}
+      	
+      	function setCourse(obj){
+      		time=$(obj).parent().parent().children().eq(3).attr("ref");
+      		coursename=$(obj).parent().parent().children().eq(0).text();
+      		id=$(obj).attr("ref");
+      		
+      		ts=time.split("&&");
+      		//确认是否冲突
+      		for(var i=0;i<ts.length;i++){
+      			r=getrow(ts[i]);
+      			s=getcol(ts[i]);
+      			index=$("#"+r).index();
+      			content=$("#"+r).parent().children("td").eq(index+s).text();
+      			if(content!=""&&content!=coursename){
+      				alert("课程"+coursename+"和"+getday(s)+getcount(r)+"的"+content+"冲突");
+      				return;
+      			}
+      		}
+      		
+      		//在课程表上显示课程
+      		for(var i=0;i<ts.length;i++){
+      			r=getrow(ts[i]);
+      			s=getcol(ts[i]);
+      			index=$("#"+r).index();
+      			if($("#"+r).parent().children("td").eq(index+s).text()==""){
+      				$("#"+r).parent().children("td").eq(index+s).text(coursename);
+      				$("#classcourse").val($("#classcourse").val()+id+";");
+      			}else{
+      				$("#"+r).parent().children("td").eq(index+s).text("");
+      				$("#classcourse").val($("#classcourse").val().replace(id+";",""));
+      			}
       		}
       		
       	}
@@ -254,6 +309,7 @@
       			return "ten";
       		}
       	}
+      
       </script>
 	
 </body>

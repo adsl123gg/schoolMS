@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 n=0;
-./a.sh $1>t;
+./a.sh >t;
 while read l
 do
 	n=$(( $l + $n ));

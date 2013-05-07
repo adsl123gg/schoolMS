@@ -1,9 +1,15 @@
 package com.eason.pojo;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,6 +30,7 @@ public class Course {
 	private String property;
 	private String createtime;
 	private Teacher teacher;
+	private Set<Class> classSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -78,6 +85,18 @@ public class Course {
 	}
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+	
+	@ManyToMany(cascade={CascadeType.REMOVE})
+	@JoinTable(name="class_course",
+				joinColumns=@JoinColumn(name="course_id"),
+				inverseJoinColumns=@JoinColumn(name="class_id")
+			)
+	public Set<Class> getClassSet() {
+		return classSet;
+	}
+	public void setClassSet(Set<Class> classSet) {
+		this.classSet = classSet;
 	}
 	
 }

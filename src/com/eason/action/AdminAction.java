@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
@@ -50,6 +51,8 @@ public class AdminAction extends BaseAction{
 	private String teacherid;
 	private String result;
 	private String classcontent;
+	//private String classcourse;
+	private Set<Course> classcourseset;
 	
 	@Action(value="adminClass",results={@Result(location="/WEB-INF/content/admin_class.jsp")})
 	public String adminClass() throws Exception {
@@ -60,6 +63,9 @@ public class AdminAction extends BaseAction{
 	@Action(value="adminTeacherInfo",results={@Result(location="/WEB-INF/content/admin_teacher_info.jsp")})
 	public String adminTeacherInfo() throws Exception {
 		teachers=teacherService.findAll();
+		
+		System.out.println("teachers"+teachers.size());
+		
 		return SUCCESS;
 	}
 	
@@ -77,10 +83,28 @@ public class AdminAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	
+	@Action(value="adminClassCourse",results={
+			@Result(name="success",location="/WEB-INF/content/admin_class_course.jsp")
+		})
+	public String adminClassCourse() throws Exception {
+		clazz=classService.findById(classid);
+		//teachers=teacherService.findAll();
+		
+		classcourseset=clazz.getCourseSet();
+		
+		courses=courseService.findAll();
+		
+		return SUCCESS;
+	}
+	
 	@Action(value="adminCourse",results={@Result(location="/WEB-INF/content/admin_course.jsp")})
 	public  String adminCourse(){
 		teachers=teacherService.findAll();
 		courses=courseService.findAll();
+		
+		System.out.println("course          "+courses.size());
+		
 		return SUCCESS;
 	}
 	
@@ -520,5 +544,21 @@ public class AdminAction extends BaseAction{
 	public void setCourseService(CourseService courseService) {
 		this.courseService = courseService;
 	}
+
+	public Set<Course> getClasscourseset() {
+		return classcourseset;
+	}
+
+	public void setClasscourseset(Set<Course> classcourseset) {
+		this.classcourseset = classcourseset;
+	}
+
+	/*public String getClasscourse() {
+		return classcourse;
+	}
+
+	public void setClasscourse(String classcourse) {
+		this.classcourse = classcourse;
+	}*/
 
 }

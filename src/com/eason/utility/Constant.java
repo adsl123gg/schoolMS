@@ -37,4 +37,8 @@ public interface Constant {
 	public final String DELETECOURSE_SUCCESS="deletecourse_success";
 	public final String DELETECOURSE_FAIL="deletecourse_fail";
 	
+	public final String CHECKCOURSEOFTEACHER_FAIL="checkcourseofteacher_fail";
+	public final String CHECKCOURSEOFTEACHER_SUCCESS="checkcourseofteacher_success";
+	
+	
 }

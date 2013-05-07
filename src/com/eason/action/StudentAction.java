@@ -1,23 +1,28 @@
 package com.eason.action;
 
+import java.util.Set;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.eason.pojo.Course;
 import com.eason.pojo.Student;
+import com.eason.service.ClassService;
 import com.eason.service.StudentService;
-
-
 
 public class StudentAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
 	private StudentService studentService;
+	private ClassService classService;
 	
 	private String oldpasswd;
 	private String newPwd;
 	private String newPwd2;
 	private String code;
+	
+	private Set<Course> studentCourses;
 	
 	@Action(value="studentInfo",results={@Result(location="/WEB-INF/content/student_info.jsp")})
 	public String execute() throws Exception {
@@ -26,6 +31,10 @@ public class StudentAction extends BaseAction{
 	
 	@Action(value="studentCourse",results={@Result(location="/WEB-INF/content/student_course.jsp")})
 	public String studentInfo() throws Exception {
+		
+		Student student=(Student) session.get("student");
+		
+		studentCourses=classService.findById(student.getClazz().getId()).getCourseSet();
 		return SUCCESS;
 	}
 	
@@ -93,6 +102,19 @@ public class StudentAction extends BaseAction{
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public Set<Course> getStudentCourses() {
+		return studentCourses;
+	}
+
+	public void setStudentCourses(Set<Course> studentCourses) {
+		this.studentCourses = studentCourses;
+	}
+
+	@Autowired
+	public void setClassService(ClassService classService) {
+		this.classService = classService;
 	}
 
 	

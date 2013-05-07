@@ -21,7 +21,7 @@
 	<div class="" style="margin-top:50px">
 	<span id="add" class="btn btn-primary" data-toggle="modal" href="#modal">添加课程</span>
 	
-	<!-- 添加学生的框 -->
+	<!-- 添加课程的框 -->
 	<div id="modal" class="modal hide fade in" style="display:none;">
             <div class="modal-header">
               <a class="close" data-dismiss="modal">×</a>
@@ -40,7 +40,7 @@
 					   <div class="control-group">
 						<label class="control-label" >任课教师</label>
 						<div class="controls">
-						  <select  name="teacherid">
+						  <select  name="teacherid" id="addteacherid">
 						  	<c:forEach items="${teachers}" var="teacher">
 						  		<option value="${teacher.id }" >${teacher.name}</option>
 						  	</c:forEach>
@@ -131,7 +131,7 @@
       </table>
     
 	
-	<!-- 修改学生的框 -->
+	<!-- 修改课程的框 -->
 	<div id="edit" class="modal hide fade in" style="display: none;">
            <div class="modal-header">
               <a class="close" data-dismiss="modal">×</a>
@@ -151,7 +151,7 @@
 					   <div class="control-group">
 						<label class="control-label" >任课教师</label>
 						<div class="controls">
-						  <select  name="teacherid" id="teacherid">
+						  <select  name="teacherid" id="editteacherid">
 						  	<c:forEach items="${teachers}" var="teacher">
 						  		<option value="${teacher.id }" >${teacher.name}</option>
 						  	</c:forEach>
@@ -314,6 +314,7 @@
 			
 			
 			$("#addCourse").click(function(){
+				teacherid=$("#addteacherid").val();
 				coursename=$("#addcoursename").val();
 				address=$("#addaddress").val();
 				credit=$("#addcredit").val();
@@ -321,7 +322,14 @@
 				
 				//alert(time);
 				if(coursename!=""&&address!=""&&credit!=""&&time!=""){
-					$("#addCourseForm").submit();
+					$.get("checkCourseOfTeacher",{teacherid:teacherid,time:time,courseid:""},function(rs){
+						if("checkcourseofteacher_success"==rs){
+							$("#addCourseForm").submit();
+						}else{
+							alert("任课教师上课时间冲突");
+						}
+					});
+					
 				}else{
 					$("#addcourse_msg").children("strong").text("以上信息不允许为空");
 					$("#addcourse_msg").show();
@@ -330,14 +338,22 @@
 			});
 			
 			$("#updateCourse").click(function(){
-			
+				courseid=$("#hiddenid").val();
+				teacherid=$("#editteacherid").val();
 				coursename=$("#editcoursename").val();
 				address=$("#editaddress").val();
 				credit=$("#editcredit").val();
 				time=$("#edittime").val();
 				
 				if(coursename!=""&&address!=""&&credit!=""&&time!=""){
-					$("#updateCourseForm").submit();
+					$.get("checkCourseOfTeacher",{teacherid:teacherid,time:time,courseid:courseid},function(rs){
+						if("checkcourseofteacher_success"==rs){
+							$("#updateCourseForm").submit();
+						}else{
+							alert("任课教师上课时间冲突");
+						}
+					});
+					//
 				}else{
 					$("#updatecourse_msg").children("strong").text("以上信息不允许为空");
 					$("#updatecourse_msg").show();
@@ -409,18 +425,22 @@
 		});
 		
 		function delCourse(obj){
-			id=$(obj).attr("ref");
-			$.get("deleteCourse",{courseid:id},function(rs){
-				if("deletecourse_success"==rs.trim()){
-					$("#code").children("strong").text("删除课程成功");
-					$("#code").show();
-					$(obj).parent().parent().remove();
-				}else{
-					$("#code").children("strong").text("删除课程失败");
-					$("#code").show();
-				}
-				
-			});
+			result=confirm("确定删除课程吗");
+			if(true==result){
+				id=$(obj).attr("ref");
+				$.get("deleteCourse",{courseid:id},function(rs){
+					if("deletecourse_success"==rs.trim()){
+						$("#code").children("strong").text("删除课程成功");
+						$("#code").show();
+						$(obj).parent().parent().remove();
+					}else{
+						$("#code").children("strong").text("删除课程失败");
+						$("#code").show();
+					}
+					
+				});
+			}
+			
 		}
 		
 		

@@ -25,15 +25,17 @@
 		<table class="table">
 			<c:forEach items="${clazzs}" var="clazz" >
 			 	<tr>
-						<td width="300px">
-							<span class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="${clazz.classname}">
-								<a href="adminClassInfo?classid=${clazz.id}" style="color:white">
-								${clazz.classname}</a>
-								<a href="#"><i class="icon-edit"  data-toggle="modal" onclick="updateClass(this)" href="#edit"></i></a>
-								<a onclick="delClass(this)" href="javascript:;" ><i class="icon-trash"></i></a>
-								<input type="hidden" id="${clazz.id}" >
-							</span>
-						</td>
+					<td width="300px">
+						<span class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="${clazz.classname}">
+							<a href="adminClassInfo?classid=${clazz.id}" style="color:white">
+							${clazz.classname}</a>
+							<a href="#"><i class="icon-edit"  data-toggle="modal" onclick="updateClass(this)" href="#edit"></i></a>
+							<a onclick="delClass(this)" href="javascript:;" ><i class="icon-trash"></i></a>
+							<input type="hidden" id="${clazz.id}" >
+						</span>
+						<span class="offset1">班级总人数为 ${fn:length(clazz.studentSet)} </span>
+						<a href="adminClassCourse?classid=${clazz.id}"><span class="btn btn-primary offset2">查看课表</span></a>
+					</td>
 					
 				</tr>
 			</c:forEach>

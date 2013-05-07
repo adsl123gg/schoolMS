@@ -21,35 +21,42 @@
         <tbody>
           <tr>
 			<td>姓名</td>
-			<td>马文多</td>
+			<td>${teacher.name}</td>
 		  </tr>
           <tr>
           	<td>出生日期</td>
-          	<td>1991.3</td>
+          	<td>${teacher.birth}</td>
           </tr>
           <tr>
           	<td>性别</td>
-          	<td>男</td>
+          	<td>
+				<c:if test="${teacher.sex eq 'true'}">
+          			男
+          		</c:if>
+          		<c:if test="${teacher.sex eq 'false'}">
+          			女
+          		</c:if>
+			</td>
           </tr>
           <tr>
           	<td>住址</td>
-          	<td></td>
+          	<td>${teacher.address}</td>
           </tr>
           <tr>
           	<td>教师编号</td>
-          	<td>310908050207</td>
+          	<td>${teacher.username}</td>
           </tr>
 		  <tr>
           	<td>毕业院校</td>
-          	<td>清华大学</td>
+          	<td>${teacher.school}</td>
           </tr>
 		  <tr>
           	<td>学历</td>
-          	<td>博士</td>
+          	<td>${teacher.education}</td>
           </tr>
           <tr>
           	<td>入校时间</td>
-          	<td>2009.9</td>
+          	<td>${teacher.intime}</td>
           </tr>
         </tbody>
       </table>

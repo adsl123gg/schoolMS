@@ -12,22 +12,18 @@
 	<div class="" style="margin-top:50px">
       <div class="well">
 		<table class="table">
-			<tr>
-				<td>
-					<a id="element" href="#" class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="电仪09-1班">电仪09-1班</a>
-				</td>
-				<td>
-					<a id="element" href="#" class="btn btn-info btn-large c offset2" rel="popover" data-content="电气自动化学院" data-original-title="电仪09-2班">电仪09-2班</a>
-				</td>
-				<td>
-					<a id="element" href="#" class="btn btn-info btn-large c offset2" rel="popover" data-content="电气自动化学院" data-original-title="电仪09-3班">电仪09-3班</a>
-				</td>
-			</tr>
-			<tr >
-				<td><a id="element" href="#" class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="电仪09-1班">电仪09-1班</a></td>
-				<td><a id="element" href="#" class="btn btn-info btn-large c offset2" rel="popover" data-content="电气自动化学院" data-original-title="电仪09-1班">电仪09-1班</a></td>
-				<td><a id="element" href="#" class="btn btn-info btn-large c offset2" rel="popover" data-content="电气自动化学院" data-original-title="电仪09-1班">电仪09-1班</a></td>
-			</tr>
+			<c:forEach items="${clazzs}" var="clazz" >
+			 	<tr>
+					<td width="300px">
+						<span class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="${clazz.classname}">
+							<a href="teacherClassInfo?classid=${clazz.id}" style="color:white">
+							${clazz.classname}</a>
+							<input type="hidden" id="${clazz.id}" >
+						</span>
+					</td>
+					
+				</tr>
+			</c:forEach>
 		</table>
           </div>
     </div>

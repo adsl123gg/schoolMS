@@ -20,9 +20,9 @@
                   
                   <div class="nav-collapse collapse navbar-inverse-collapse offset2">
                     <ul class="nav">
-                      <li ><a href="#">教师信息查询</a></li>
-                      <li><a href="#">查看代课表</a></li>
-                      <li><a href="#">查询代课班级</a></li>
+                      <li ><a href="teacherInfo">教师信息查询</a></li>
+                      <li><a href="teacherCourse">查看代课表</a></li>
+                      <li><a href="teacherClass">查询代课班级</a></li>
                      
                     </ul>
                     

@@ -1,23 +1,40 @@
 package com.eason.action;
 
 
+import java.util.List;
+import java.util.Set;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.eason.pojo.Class;
+import com.eason.pojo.Course;
 import com.eason.pojo.Student;
 import com.eason.pojo.Teacher;
+import com.eason.service.ClassService;
+import com.eason.service.StudentService;
 import com.eason.service.TeacherService;
 
 public class TeacherAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
 	private TeacherService teacherService;
+	private ClassService classService;
+	private StudentService studentService;
+	
+	private List<Student> students;
 	
 	private String oldpasswd;
 	private String newPwd;
 	private String newPwd2;
 	private String code;
+	private Set<Course> teacherCourses;
+	private Set<Class> clazzs;
+	private String classid;
+	private Class clazz;
+	
+	private Teacher teacher=(Teacher) session.get("teacher");
 
 	@Action(value="teacherInfo",results={@Result(location="/WEB-INF/content/teacher_info.jsp")})
 	public String execute() throws Exception {
@@ -26,11 +43,28 @@ public class TeacherAction extends BaseAction{
 	
 	@Action(value="teacherCourse",results={@Result(location="/WEB-INF/content/teacher_course.jsp")})
 	public String teacherInfo() throws Exception {
+		
+		System.out.println(teacher.getName());
+		teacherCourses=teacherService.findById(teacher.getId()).getCourseSet();
+		
 		return SUCCESS;
 	}
 	
-	@Action(value="teacherScore",results={@Result(location="/WEB-INF/content/teacher_score.jsp")})
+	@Action(value="teacherClass",results={@Result(location="/WEB-INF/content/teacher_class.jsp")})
 	public String teacherScore() throws Exception {
+		
+		clazzs=classService.findByTeacherId(teacher.getId());
+		
+		return SUCCESS;
+	}
+	
+	
+	@Action(value="teacherClassInfo",results={@Result(location="/WEB-INF/content/teacher_class_info.jsp")})
+	public String teacherClassInfo() throws Exception {
+		
+		clazz=classService.findById(classid);
+		students=studentService.findByClass(classid);
+		
 		return SUCCESS;
 	}
 	
@@ -92,6 +126,54 @@ public class TeacherAction extends BaseAction{
 
 	public void setNewPwd2(String newPwd2) {
 		this.newPwd2 = newPwd2;
+	}
+
+	public Set<Course> getTeacherCourses() {
+		return teacherCourses;
+	}
+
+	public void setTeacherCourses(Set<Course> teacherCourses) {
+		this.teacherCourses = teacherCourses;
+	}
+
+	public Set<Class> getClazzs() {
+		return clazzs;
+	}
+
+	public void setClazzs(Set<Class> clazzs) {
+		this.clazzs = clazzs;
+	}
+
+	public void setClassService(ClassService classService) {
+		this.classService = classService;
+	}
+
+	public String getClassid() {
+		return classid;
+	}
+
+	public void setClassid(String classid) {
+		this.classid = classid;
+	}
+
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
+	public Class getClazz() {
+		return clazz;
+	}
+
+	public void setClazz(Class clazz) {
+		this.clazz = clazz;
 	}
 	
 }

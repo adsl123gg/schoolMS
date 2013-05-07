@@ -38,6 +38,10 @@ public class CourseService {
 	public void del(Course course) {
 		courseDao.del(course);
 	}
+
+	public List<Course> findByTeacherID(String teacherid) {
+		return courseDao.findByTeacherID(teacherid);
+	}
 	
 	
 }
