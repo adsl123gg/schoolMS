@@ -31,6 +31,7 @@ public class Teacher {
 	private String school;
 	private String education;
 	private Set<Course> courseSet;
+	private Set<Paper> paperSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -111,6 +112,14 @@ public class Teacher {
 	}
 	public void setCourseSet(Set<Course> courseSet) {
 		this.courseSet = courseSet;
+	}
+	
+	@OneToMany(mappedBy="teacher",cascade={CascadeType.REMOVE})
+	public Set<Paper> getPaperSet() {
+		return paperSet;
+	}
+	public void setPaperSet(Set<Paper> paperSet) {
+		this.paperSet = paperSet;
 	}
 	
 }

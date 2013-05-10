@@ -32,6 +32,7 @@
                       <li ><a href="adminClass">班级管理</a></li>
                       <li ><a href="adminTeacherInfo">教师管理</a></li>
                      <li ><a href="adminCourse">课程管理</a></li>
+                     
                     </ul>
                     
                     <ul class="nav pull-right">

@@ -52,6 +52,7 @@ public class BaseDao<T,PK extends Serializable> {
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		Criteria cir = getSession().createCriteria(clazz);
+		cir.addOrder(Order.asc("createtime"));
 		return cir.list();
 	}
 	

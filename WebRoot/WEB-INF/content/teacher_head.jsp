@@ -23,7 +23,7 @@
                       <li ><a href="teacherInfo">教师信息查询</a></li>
                       <li><a href="teacherCourse">查看代课表</a></li>
                       <li><a href="teacherClass">查询代课班级</a></li>
-                     
+                     <li><a href="teacherPaperList">编写试题</a></li>
                     </ul>
                     
                     <ul class="nav pull-right">
@@ -87,11 +87,29 @@
 	  		$("#code").hide();
 	  		
 	  		var c=$("#codeP").attr("c");
-	  		if(c=='f'){
+	  		if(c=='updateteacherpwd_fail'){
 	  			$("#code").children("strong").text("密码修改失败");
 	  			$("#code").show();
-	  		}else if(c=='t'){
+	  		}else if(c=='updateteacherpwd_success'){
 	  			$("#code").children("strong").text("密码修改成功");
+	  			$("#code").show();
+	  		}else if(c=='addpaper_success'){
+	  			$("#code").children("strong").text("添加试卷成功");
+	  			$("#code").show();
+	  		}else if(c=='updatepaper_success'){
+	  			$("#code").children("strong").text("更新试卷成功");
+	  			$("#code").show();
+	  		}else if(c=='addquestion_fail'){
+	  			$("#code").children("strong").text("添加题目失败");
+	  			$("#code").show();
+	  		}else if(c=='addquestion_success'){
+	  			$("#code").children("strong").text("添加题目成功");
+	  			$("#code").show();
+	  		}else if(c=='updatequestion_success'){
+	  			$("#code").children("strong").text("修改题目成功");
+	  			$("#code").show();
+	  		}else if(c=='updatequestion_fail'){
+	  			$("#code").children("strong").text("修改题目失败");
 	  			$("#code").show();
 	  		}
 	  		

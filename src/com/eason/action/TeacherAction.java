@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.eason.pojo.Class;
 import com.eason.pojo.Course;
+import com.eason.pojo.Paper;
 import com.eason.pojo.Student;
 import com.eason.pojo.Teacher;
 import com.eason.service.ClassService;
+import com.eason.service.PaperService;
 import com.eason.service.StudentService;
 import com.eason.service.TeacherService;
 
@@ -22,8 +24,10 @@ public class TeacherAction extends BaseAction{
 	private TeacherService teacherService;
 	private ClassService classService;
 	private StudentService studentService;
+	private PaperService paperService;
 	
 	private List<Student> students;
+	private List<Paper> papers;
 	
 	private String oldpasswd;
 	private String newPwd;
@@ -68,6 +72,15 @@ public class TeacherAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	
+	@Action(value="teacherPaperList",results={@Result(location="/WEB-INF/content/teacher_paper.jsp")})
+	public String teacherPaperList() throws Exception {
+		Teacher t=(Teacher)session.get("teacher");
+		papers=paperService.findByTeacherId(t.getId());
+		
+		return SUCCESS;
+	}
+	
 	@Action(value="teacherExit",results={@Result(type="redirectAction",params={"actionName","index"})})
 	public String teacherExit() throws Exception {
 		session.clear();
@@ -81,12 +94,12 @@ public class TeacherAction extends BaseAction{
 			if (newPwd.equals(newPwd2)) {
 				t.setPasswd(newPwd);
 				teacherService.save(t);
-				code="t";
+				setCode(UPDATETEACHERPWD_SUCCESS);
 			}else {
-				code="f";
+				setCode(UPDATETEACHERPWD_FAIL);
 			}
 		}else {
-			code="f";
+			setCode(UPDATETEACHERPWD_FAIL);
 		}
 		return SUCCESS;
 	}
@@ -174,6 +187,19 @@ public class TeacherAction extends BaseAction{
 
 	public void setClazz(Class clazz) {
 		this.clazz = clazz;
+	}
+
+	public List<Paper> getPapers() {
+		return papers;
+	}
+
+	public void setPapers(List<Paper> papers) {
+		this.papers = papers;
+	}
+
+	@Autowired
+	public void setPaperService(PaperService paperService) {
+		this.paperService = paperService;
 	}
 	
 }

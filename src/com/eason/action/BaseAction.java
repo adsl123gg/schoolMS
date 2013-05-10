@@ -1,5 +1,6 @@
 package com.eason.action;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
@@ -21,11 +22,29 @@ public class BaseAction extends ActionSupport implements Constant{
 	 HttpServletRequest request;
 	 HttpServletResponse response;
 	
+	
 	public BaseAction(){
 		session=ActionContext.getContext().getSession();
 		application=ActionContext.getContext().getApplication();
 		request=ServletActionContext.getRequest();
 		response=ServletActionContext.getResponse();
+		
+	}
+	
+	public PrintWriter getWriter(){
+		 PrintWriter writer=null;
+		 try {
+				writer = response.getWriter();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 
+		 return writer;
+	}
+	
+	public void closeWriter(PrintWriter writer){
+		writer.flush();
+		writer.close();
 	}
 
 }
