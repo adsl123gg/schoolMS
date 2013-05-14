@@ -70,8 +70,11 @@
 					<td><a href="teacherPaperInfo?paperid=${paper.id}">${paper.name }</a></td>
 					<td>${paper.state }</td>
 					<td>当前试卷有${fn:length(paper.questionSet)}道题</td>
-					<td><button class="btn" onclick="editpaper(this)" ref="${paper.id }" href="#edit" data-toggle="modal">修改</button>
-					<button class="btn btn-danger" onclick="delpaper(this)" ref="${paper.id }">删除</button></td>
+					<td>
+						<button class="btn" onclick="editpaper(this);" ref="${paper.id }" href="#edit" data-toggle="modal">修改</button>
+						<button class="btn btn-danger" onclick="delpaper(this)" ref="${paper.id }">删除</button>
+						<button class="btn btn-success" onclick="submitpaper(this)" ref="${paper.id }">提交试卷</button>
+					</td>
 				</tr>
         	</c:forEach>
         </tbody>
@@ -139,29 +142,73 @@
     	
     	function delpaper(obj){
     		rs=confirm("确定删除该试卷吗？");
-    		if(rs=true){
-	    		id=$(obj).attr("ref");
-	    		$.get("deletePaper",{paperid:id},function(result){
-	    			
-	    			if(result.trim()=="delpaper_success"){
-	    				$("#code").children("strong").text("删除试卷成功");
-	  					$("#code").show();
-	  					$(obj).parent().parent().remove();
-	    			}else{
-	    				$("#code").children("strong").text("删除试卷失败");
-	  					$("#code").show();
-	    			}
-	    		});
+    		if(rs==true){
+    			id=$(obj).attr("ref");
+    			$.get("checkPaperSubmit",{paperid:id},function(rs){
+    				if(rs=="false"){
+    					$.get("deletePaper",{paperid:id},function(result){
+			    			if(result.trim()=="delpaper_success"){
+			    				$("#code").children("strong").text("删除试卷成功");
+			  					$("#code").show();
+			  					$(obj).parent().parent().remove();
+			    			}else{
+			    				$("#code").children("strong").text("删除试卷失败");
+			  					$("#code").show();
+			    			}
+			    		});
+    				}else{
+    					//$(obj).attr("disabled","disabled");
+	    				alert("该试卷已提交，不能修改或删除");
+	    				return;
+    				}
+    			});
+	    		
     		}
     	}
     	
     	function editpaper(obj){
-    		
-    		name=$(obj).parent().parent().children("td").eq(0).children("a").eq(0).text();
     		id=$(obj).attr("ref");
+    		//$(obj).attr("disabled","");
+    		$.get("checkPaperSubmit",{paperid:id},function(rs){
+    			if(rs=="true"){
+    				alert("该试卷已提交，不能修改或删除");
+    				$("#edit").hide();
+    				return true;
+    			}else{
+    				$(obj).removeAttr("disabled");
+    				
+    				name=$(obj).parent().parent().children("td").eq(0).children("a").eq(0).text();
     		
-    		$("#editname").val(name);
-    		$("#editid").val(id);
+		    		$("#editname").val(name);
+		    		$("#editid").val(id);
+    			}
+    		});
+    	}
+    	
+    	function submitpaper(obj){
+    		id=$(obj).attr("ref");
+    		rs=confirm("确定提交该试卷吗，提交之后不能修改！");
+    		if(rs==true){
+    			$.get("checkPaperSubmit",{paperid:id},function(rs){
+	    			if(rs=="false"){
+	    				$.get("submitPaper",{paperid:id},function(rs){
+			    			if(rs.trim()=="paper_submit_success"){
+			    				$("#code").children("strong").text("试卷提交成功");
+				  				$("#code").show();
+			    			}else{
+			    				$("#code").children("strong").text("试卷提交失败");
+				  				$("#code").show();
+			    			}
+			    		});
+	    			}else{
+	    				//$(obj).attr("disabled","disabled");
+	    				alert("该试卷已提交，不能重复提交");
+	    				return;
+	    			}
+    			});
+    		}
+    		
+    		
     	}
     	
     </script>

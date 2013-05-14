@@ -35,6 +35,10 @@ public class PaperService {
 	public void del(String paperid) {
 		paperDao.del(paperid);
 	}
+
+	public List<Paper> findSubmit() {
+		return paperDao.findSubmit();
+	}
 	
 	
 }

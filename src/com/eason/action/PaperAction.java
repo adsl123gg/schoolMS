@@ -76,11 +76,54 @@ public class PaperAction extends BaseAction{
 	}
 	
 	
-	@Action(value="teacherPaperInfo",results={@Result(location="/WEB-INF/content/teacher_paper_info.jsp")})
+	@Action(value="teacherPaperInfo",results={
+			@Result(name="success",location="/WEB-INF/content/teacher_paper_info.jsp"),
+			@Result(name="submit",location="/WEB-INF/content/teacher_paper_info_submit.jsp")}
+	)
 	public String teacherPaperInfo() throws Exception {
 		paper=paperService.findById(paperid);
-		session.put("paper", paper);
-		return SUCCESS;
+		if (PAPER_EDIT.equals(paper.getState().trim())) {
+			session.put("paper", paper);
+			return SUCCESS;
+		}else {
+			return "submit";
+		}
+		
+	}
+	
+	
+	@Action(value="submitPaper")
+	public void submitPaper() throws Exception {
+		PrintWriter writer=getWriter();
+		
+		try {
+			paper=paperService.findById(paperid);
+			paper.setState(PAPER_SUBMIT);
+			
+			paperService.save(paper);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			writer.print(PAPER_SUBMIT_FAIL);
+			closeWriter(writer);
+			return;
+		}
+		
+		writer.print(PAPER_SUBMIT_SUCCESS);
+		closeWriter(writer);
+	}
+	
+	@Action(value="checkPaperSubmit")
+	public void checkPaperSubmit() throws Exception {
+		paper=paperService.findById(paperid);
+		PrintWriter writer=getWriter();
+		if (!PAPER_EDIT.equals(paper.getState())) {
+			writer.write("true");
+		}else {
+			writer.write("false");
+		}
+		
+		closeWriter(writer);
 	}
 
 	@Autowired

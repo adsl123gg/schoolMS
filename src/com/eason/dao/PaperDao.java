@@ -19,4 +19,10 @@ public class PaperDao extends BaseDao<Paper, String>{
 		return (List<Paper>)query.list();
 	}
 
+	public List<Paper> findSubmit() {
+		String hql = "from Paper where state!='ÊÔ¾íÕıÔÚ±à¼­'";
+		Query query = getSession().createQuery(hql);
+		return (List<Paper>)query.list();
+	}
+
 }

@@ -68,5 +68,7 @@ public interface Constant {
 	public final String PAPER_EDIT="试卷正在编辑";
 	public final String PAPER_SUBMIT="试卷已提交，正在审核";
 	public final String PAPER_OK="审核通过";
+	public final String PAPER_SUBMIT_SUCCESS="paper_submit_success";
+	public final String PAPER_SUBMIT_FAIL="paper_submit_fail";
 	
 }

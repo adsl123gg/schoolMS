@@ -4,7 +4,6 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>查询代课班级</title>
 	
 </head>
 <body class="container">

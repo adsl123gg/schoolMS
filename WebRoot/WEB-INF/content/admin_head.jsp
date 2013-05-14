@@ -4,7 +4,6 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>班级管理</title>
 	
 	<style type="text/css">
 		#add{
@@ -32,7 +31,7 @@
                       <li ><a href="adminClass">班级管理</a></li>
                       <li ><a href="adminTeacherInfo">教师管理</a></li>
                      <li ><a href="adminCourse">课程管理</a></li>
-                     
+                     <li ><a href="adminPaper">试卷管理</a></li>
                     </ul>
                     
                     <ul class="nav pull-right">

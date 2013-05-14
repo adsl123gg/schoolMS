@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.eason.pojo.Admin;
 import com.eason.pojo.Class;
 import com.eason.pojo.Course;
+import com.eason.pojo.Paper;
 import com.eason.pojo.Student;
 import com.eason.pojo.Teacher;
 import com.eason.service.AdminService;
 import com.eason.service.ClassService;
 import com.eason.service.CourseService;
+import com.eason.service.PaperService;
 import com.eason.service.StudentService;
 import com.eason.service.TeacherService;
 import com.eason.utility.Time;
@@ -33,6 +35,7 @@ public class AdminAction extends BaseAction{
 	private StudentService studentService;
 	private ClassService classService;
 	private CourseService courseService;
+	private PaperService paperService;
 	
 	private Teacher teacher;
 	private Student student;
@@ -53,6 +56,9 @@ public class AdminAction extends BaseAction{
 	private String classcontent;
 	//private String classcourse;
 	private Set<Course> classcourseset;
+	private List<Paper> papers;
+	private Paper paper;
+	private String paperid;
 	
 	@Action(value="adminClass",results={@Result(location="/WEB-INF/content/admin_class.jsp")})
 	public String adminClass() throws Exception {
@@ -108,6 +114,30 @@ public class AdminAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	@Action(value="adminPaper",results={@Result(location="/WEB-INF/content/admin_paper.jsp")})
+	public  String adminPaper(){
+		papers=paperService.findSubmit();
+		return SUCCESS;
+	}
+	
+	@Action(value="adminPaperInfo",results={
+			@Result(name="success",location="/WEB-INF/content/admin_paper_info_submit.jsp")})
+	public String adminPaperInfo() throws Exception {
+		paper=paperService.findById(paperid);
+		return SUCCESS;
+	}
+	
+	
+	@Action(value="verifyPaper",results={@Result(type="redirectAction",params={"actionName","adminPaper"})})
+	public String verifyPaper() throws Exception {
+		paper=paperService.findById(paperid);
+		paper.setState(PAPER_OK);
+		paperService.save(paper);
+		
+		papers=paperService.findSubmit();
+		
+		return SUCCESS;
+	}
 	
 	@Action(value="adminExit",results={@Result(type="redirectAction",params={"actionName","index"})})
 	public String adminExit() throws Exception {
@@ -553,12 +583,33 @@ public class AdminAction extends BaseAction{
 		this.classcourseset = classcourseset;
 	}
 
-	/*public String getClasscourse() {
-		return classcourse;
+	@Autowired
+	public void setPaperService(PaperService paperService) {
+		this.paperService = paperService;
 	}
 
-	public void setClasscourse(String classcourse) {
-		this.classcourse = classcourse;
-	}*/
+	public List<Paper> getPapers() {
+		return papers;
+	}
+
+	public void setPapers(List<Paper> papers) {
+		this.papers = papers;
+	}
+
+	public Paper getPaper() {
+		return paper;
+	}
+
+	public void setPaper(Paper paper) {
+		this.paper = paper;
+	}
+
+	public String getPaperid() {
+		return paperid;
+	}
+
+	public void setPaperid(String paperid) {
+		this.paperid = paperid;
+	}
 
 }
