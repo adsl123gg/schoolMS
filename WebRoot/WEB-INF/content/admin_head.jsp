@@ -148,6 +148,12 @@
   		}else if(c=='updatecourse_fail'){
   			$("#code").children("strong").text("更新课程失败");
   			$("#code").show();
+  		}else if(c=='addexam_success'){
+  			$("#code").children("strong").text("安排考试成功");
+  			$("#code").show();
+  		}else if(c=='addexam_fail'){
+  			$("#code").children("strong").text("安排考试失败");
+  			$("#code").show();
   		}
   		
   		

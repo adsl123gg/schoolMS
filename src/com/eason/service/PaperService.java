@@ -39,6 +39,10 @@ public class PaperService {
 	public List<Paper> findSubmit() {
 		return paperDao.findSubmit();
 	}
+
+	public List<Paper> findVerify() {
+		return paperDao.findVerify();
+	}
 	
 	
 }

@@ -1,11 +1,15 @@
 package com.eason.pojo;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -26,6 +30,7 @@ public class Student {
 	private String passwd;
 	private String intime;
 	private Class clazz;
+	private Set<Score> scoreSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -94,4 +99,12 @@ public class Student {
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
+	@OneToMany(mappedBy="student",cascade={CascadeType.REMOVE})
+	public Set<Score> getScoreSet() {
+		return scoreSet;
+	}
+	public void setScoreSet(Set<Score> scoreSet) {
+		this.scoreSet = scoreSet;
+	}
+	
 }

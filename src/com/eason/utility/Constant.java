@@ -62,6 +62,10 @@ public interface Constant {
 	public final String DELQUESTION_SUCCESS="delquestion_success";
 	public final String DELQUESTION_FAIL="delquestion_fail";
 	
+	//exam
+	public final String ADDEXAM_SUCCESS="addexam_success";
+	public final String ADDEXAM_FAIL="addexam_fail";
+	
 	public final String CHECKCOURSEOFTEACHER_FAIL="checkcourseofteacher_fail";
 	public final String CHECKCOURSEOFTEACHER_SUCCESS="checkcourseofteacher_success";
 	
@@ -70,5 +74,8 @@ public interface Constant {
 	public final String PAPER_OK="ÉóºËÍ¨¹ý";
 	public final String PAPER_SUBMIT_SUCCESS="paper_submit_success";
 	public final String PAPER_SUBMIT_FAIL="paper_submit_fail";
+	
+	public final String BEFOREEXAM="beforeexam";
+	public final String AFTEREXAM="afterexam";
 	
 }

@@ -27,6 +27,7 @@ public class Paper {
 	private String createtime;
 	private Teacher teacher;
 	private Set<Question> questionSet;
+	private Set<Exam> examSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -72,6 +73,13 @@ public class Paper {
 	}
 	public void setQuestionSet(Set<Question> questionSet) {
 		this.questionSet = questionSet;
+	}
+	@OneToMany(mappedBy="paper",cascade={CascadeType.REMOVE})
+	public Set<Exam> getExamSet() {
+		return examSet;
+	}
+	public void setExamSet(Set<Exam> examSet) {
+		this.examSet = examSet;
 	}
 	
 }

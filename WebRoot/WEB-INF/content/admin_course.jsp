@@ -125,7 +125,7 @@
 					<td>${course.property }</td>
 					<td><a class="btn" onclick="editCourse(this)" ref="${course.id}" data-toggle="modal" href="#edit">修改</a>
 					<a class="btn btn-danger" href="javascript:;"  onclick="delCourse(this)" ref="${course.id}" >删除</a>
-					<a class="btn btn-success" href="javascript:;"  onclick="(this)" ref="${course.id}" >安排考试</a>
+					<a class="btn btn-success" href="toAddExam?courseid=${course.id}" ref="${course.id}" >安排考试</a>
 					</td>
 				</tr>
         	</c:forEach>

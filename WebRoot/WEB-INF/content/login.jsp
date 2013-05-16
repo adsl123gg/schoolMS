@@ -25,9 +25,9 @@
 				  <input id="password" type="password" class="span3" name="student.passwd">
 				  <br/>
 				  <span style="margin-left:148px">当前登录身份</span>
-				  <input type="radio" name="p" value="student" >学生
+				  <input type="radio" name="p" value="student" checked="checked">学生
 				  <input type="radio" name="p" value="teacher" >教师
-				  <input type="radio" name="p" value="admin" checked="checked">管理人员
+				  <input type="radio" name="p" value="admin" >管理人员
 				<a id="btn" type="btn" class="btn btn-primary" style="margin-left:325px;margin-top:20px">进入系统</a>
 		  
 		</form>

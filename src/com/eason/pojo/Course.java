@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -31,6 +32,8 @@ public class Course {
 	private String createtime;
 	private Teacher teacher;
 	private Set<Class> classSet;
+	private Set<Exam> examSet;
+	private Set<Score> scoreSet;
 	
 	@Id
 	@GenericGenerator(name="uuid", strategy="uuid") 
@@ -97,6 +100,20 @@ public class Course {
 	}
 	public void setClassSet(Set<Class> classSet) {
 		this.classSet = classSet;
+	}
+	@OneToMany(mappedBy="course",cascade={CascadeType.REMOVE})
+	public Set<Exam> getExamSet() {
+		return examSet;
+	}
+	public void setExamSet(Set<Exam> examSet) {
+		this.examSet = examSet;
+	}
+	@OneToMany(mappedBy="course",cascade={CascadeType.REMOVE})
+	public Set<Score> getScoreSet() {
+		return scoreSet;
+	}
+	public void setScoreSet(Set<Score> scoreSet) {
+		this.scoreSet = scoreSet;
 	}
 	
 }

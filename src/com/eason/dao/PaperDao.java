@@ -25,4 +25,9 @@ public class PaperDao extends BaseDao<Paper, String>{
 		return (List<Paper>)query.list();
 	}
 
+	public List<Paper> findVerify() {
+		String hql = "from Paper where state='ÉóºËÍ¨¹ı'";
+		Query query = getSession().createQuery(hql);
+		return (List<Paper>)query.list();
+	}
 }
