@@ -131,7 +131,7 @@ public class AdminAction extends BaseAction{
 	@Action(value="verifyPaper",results={@Result(type="redirectAction",params={"actionName","adminPaper"})})
 	public String verifyPaper() throws Exception {
 		paper=paperService.findById(paperid);
-		paper.setState(PAPER_OK);
+		System.out.println(paper.getState());
 		paperService.save(paper);
 		
 		papers=paperService.findSubmit();

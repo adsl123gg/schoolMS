@@ -120,7 +120,7 @@
 					$("#addClass_msg").show();
 					$("#addClass_msg").children("strong").text("班级名称不能为空");
 				}else{
-					$("#updateClass").submit();
+					$("#addClassForm").submit();
 				}
 			});
 			

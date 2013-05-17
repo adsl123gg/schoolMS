@@ -90,11 +90,12 @@ public class Course {
 		this.teacher = teacher;
 	}
 	
-	@ManyToMany(cascade={CascadeType.REMOVE})
+	/*@ManyToMany(cascade={CascadeType.REMOVE})
 	@JoinTable(name="class_course",
 				joinColumns=@JoinColumn(name="course_id"),
 				inverseJoinColumns=@JoinColumn(name="class_id")
-			)
+			)*/
+	@ManyToMany(mappedBy="courseSet",cascade={CascadeType.REMOVE})
 	public Set<Class> getClassSet() {
 		return classSet;
 	}

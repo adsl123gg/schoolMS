@@ -19,4 +19,10 @@ public class CourseDao extends BaseDao<Course, String>{
 		return (List<Course>)query.list();
 	}
 
+	public void delCourse(String classid) {
+		String hql = "delete from Course where teacher.id=?";
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, classid);
+	}
+
 }

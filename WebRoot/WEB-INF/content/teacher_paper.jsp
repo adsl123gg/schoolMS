@@ -195,6 +195,7 @@
 			    			if(rs.trim()=="paper_submit_success"){
 			    				$("#code").children("strong").text("试卷提交成功");
 				  				$("#code").show();
+				  				$(obj).parent().parent().children("td").eq(1).text("试卷已提交，正在审核");
 			    			}else{
 			    				$("#code").children("strong").text("试卷提交失败");
 				  				$("#code").show();

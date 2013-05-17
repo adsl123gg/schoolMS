@@ -30,7 +30,6 @@ public class LoginAction extends BaseAction{
 					@Result(name="error",type="redirectAction",params={"actionName","index"})
 				})
 	public String execute() throws Exception {
-		System.out.println(p+"+===========");
 		if ("student".equals(p)) {
 			Student s=studentService.findByNameAndPasswd(student.getUsername(),student.getPasswd());
 			if (null!=s) {
@@ -45,7 +44,6 @@ public class LoginAction extends BaseAction{
 			}
 		}else if ("admin".equals(p)) {
 			Admin a=adminService.findByNameAndPasswd(student.getUsername(),student.getPasswd());
-			System.out.println(a);
 			if (null!=a) {
 				session.put("admin", a);
 				return "admin_success";

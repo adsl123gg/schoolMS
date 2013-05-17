@@ -6,21 +6,20 @@
 
 	<package name="mypackage" extends="struts-default">
 	
-		<!-- <interceptors>
-			<interceptor name="myInterceptor" class="myInterceptor"/>
+		<interceptors>
+			<interceptor name="myInterceptor" class="myInterceptor" />
 			<interceptor-stack name="my">
-				<interceptor-ref name="defaultStack"/>
 				<interceptor-ref name="myInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
 			</interceptor-stack>
 		</interceptors>	
 		
-		<default-interceptor-ref name="my"/> -->
+		<default-interceptor-ref name="my"/>
 		
-		<!-- <global-results>
-			<result name="relogin" type="redirectAction">
-				<param name="actionName">index.action</param>
-			</result>
-		</global-results> -->
+		
+		<global-results>
+			<result name="no_permission">/WEB-INF/content/no_permisson.jsp</result>
+		</global-results>
 		
 	</package>
 

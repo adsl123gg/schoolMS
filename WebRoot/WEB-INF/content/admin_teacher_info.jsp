@@ -262,7 +262,6 @@
     		r=confirm("确定删除教师吗");
     		if(true==r){
     			id=$(obj).attr("ref");
-	    		alert(id);
 	    		$.get("deleteTeacher",{teacherid:id},function(rs){
 	    			if("deleteteacher_success"==rs.trim()){
 	    				$("#code").children("strong").text("删除教师成功");

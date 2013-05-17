@@ -41,6 +41,10 @@ public class CourseAction extends BaseAction{
 	@Action(value="saveClassCourse",results={@Result(name="success",type="redirectAction",params={"actionName","adminClass"})})
 	public String saveClassCourse(){
 		if (null==classcourse||classcourse.equals("")) {
+			Class c= classService.findById(classid);
+			c.setCourseSet(null);
+			classService.save(c);
+			
 			return SUCCESS;
 		}
 		
@@ -55,8 +59,10 @@ public class CourseAction extends BaseAction{
 		
 		for (String string : set) {
 			course=courseService.findById(string);
-			course.getClassSet().add(c);
-			courseService.save(course);
+			/*course.getClassSet().add(c);
+			courseService.save(course);*/
+			c.getCourseSet().add(course);
+			classService.save(c);
 			
 		}
 		

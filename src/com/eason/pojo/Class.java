@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -58,7 +60,12 @@ public class Class {
 		this.createtime = createtime;
 	}
 	
-	@ManyToMany(mappedBy="classSet")
+	//@ManyToMany(mappedBy="classSet",cascade={CascadeType.REMOVE})
+	@ManyToMany(cascade={CascadeType.REMOVE})
+	@JoinTable(name="class_course",
+				joinColumns=@JoinColumn(name="class_id"),
+				inverseJoinColumns=@JoinColumn(name="course_id")
+			)
 	public Set<Course> getCourseSet() {
 		return courseSet;
 	}

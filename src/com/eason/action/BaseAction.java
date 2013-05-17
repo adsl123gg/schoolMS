@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.ParentPackage;
 
 
 import com.eason.utility.Constant;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+@ParentPackage("mypackage")
 public class BaseAction extends ActionSupport implements Constant{
 
 	private static final long serialVersionUID = 1L;
