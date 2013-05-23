@@ -32,6 +32,7 @@
                       <li ><a href="adminTeacherInfo">教师管理</a></li>
                      <li ><a href="adminCourse">课程管理</a></li>
                      <li ><a href="adminPaper">试卷管理</a></li>
+                     <li ><a href="adminDataList">资料上传</a></li>
                     </ul>
                     
                     <ul class="nav pull-right">
@@ -153,6 +154,12 @@
   			$("#code").show();
   		}else if(c=='addexam_fail'){
   			$("#code").children("strong").text("安排考试失败");
+  			$("#code").show();
+  		}else if(c=='fileupload_success'){
+  			$("#code").children("strong").text("文件上传成功");
+  			$("#code").show();
+  		}else if(c=='fileupload_fail'){
+  			$("#code").children("strong").text("文件上传失败，文件大小最大为20MB");
   			$("#code").show();
   		}
   		

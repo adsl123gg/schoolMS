@@ -17,12 +17,14 @@ import com.eason.pojo.Course;
 import com.eason.pojo.Paper;
 import com.eason.pojo.Student;
 import com.eason.pojo.Teacher;
+import com.eason.pojo.User;
 import com.eason.service.AdminService;
 import com.eason.service.ClassService;
 import com.eason.service.CourseService;
 import com.eason.service.PaperService;
 import com.eason.service.StudentService;
 import com.eason.service.TeacherService;
+import com.eason.service.UserService;
 import com.eason.utility.Time;
 import com.eason.utility.UUID;
 
@@ -36,6 +38,7 @@ public class AdminAction extends BaseAction{
 	private ClassService classService;
 	private CourseService courseService;
 	private PaperService paperService;
+	private UserService userService;
 	
 	private Teacher teacher;
 	private Student student;
@@ -182,6 +185,16 @@ public class AdminAction extends BaseAction{
 		if (null==t) {
 			setCode(ADDTEACHER_FAIL);
 			return SUCCESS;
+		}else {
+			User user=new User();
+			user.setCreatetime(Time.getTime());
+			user.setPasswd(t.getUsername());
+			user.setUsername(t.getUsername());
+			user.setRole("teacher");
+			user.setPic(DEFAULT_TEACHER_PIC);
+			user.setIdentity_id(t.getId());
+			
+			userService.save(user);
 		}
 		
 		setCode(ADDTEACHER_SUCCESS);
@@ -279,6 +292,16 @@ public class AdminAction extends BaseAction{
 		if (null==s) {
 			setCode(ADDSTUDENT_FAIL);
 			return SUCCESS;
+		}else {
+			User user=new User();
+			user.setCreatetime(Time.getTime());
+			user.setPasswd(s.getUsername());
+			user.setUsername(s.getUsername());
+			user.setRole("student");
+			user.setPic(DEFAULT_STUDENT_PIC);
+			user.setIdentity_id(s.getId());
+			
+			userService.save(user);
 		}
 		
 		setCode(ADDSTUDENT_SUCCESS);
@@ -610,6 +633,11 @@ public class AdminAction extends BaseAction{
 
 	public void setPaperid(String paperid) {
 		this.paperid = paperid;
+	}
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 }

@@ -19,6 +19,7 @@
                       <li><a href="studentCourse">查看课程</a></li>
                       <li ><a href="studentScore">查询成绩</a></li>
                      <li ><a href="studentExamList">参加考试</a></li>
+                     <li ><a href="studentDataList">资料共享库</a></li>
                     </ul>
                     
                     <ul class="nav pull-right">

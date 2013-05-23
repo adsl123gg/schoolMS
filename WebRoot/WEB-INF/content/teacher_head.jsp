@@ -23,6 +23,7 @@
                       <li><a href="teacherCourse">查看代课表</a></li>
                       <li><a href="teacherClass">查询代课班级</a></li>
                      <li><a href="teacherPaperList">编写试题</a></li>
+                     <li ><a href="teacherDataList">资料上传</a></li>
                     </ul>
                     
                     <ul class="nav pull-right">

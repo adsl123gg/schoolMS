@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.eason.pojo.Admin;
 import com.eason.pojo.Student;
 import com.eason.pojo.Teacher;
+import com.eason.pojo.User;
 import com.eason.service.AdminService;
 import com.eason.service.StudentService;
 import com.eason.service.TeacherService;
+import com.eason.service.UserService;
 
 public class LoginAction extends BaseAction{
 
@@ -19,6 +21,8 @@ public class LoginAction extends BaseAction{
 	private StudentService studentService;
 	private TeacherService teacherService;
 	private AdminService adminService;
+	private UserService userService;
+	
 	private Student student;
 	
 	private String p;
@@ -30,22 +34,33 @@ public class LoginAction extends BaseAction{
 					@Result(name="error",type="redirectAction",params={"actionName","index"})
 				})
 	public String execute() throws Exception {
+		User user=new User();
 		if ("student".equals(p)) {
 			Student s=studentService.findByNameAndPasswd(student.getUsername(),student.getPasswd());
 			if (null!=s) {
 				session.put("student", s);
+				
+				user=userService.findByIdentity(s.getId());
+				session.put("user", user);
 				return "stu_success";
 			}
 		}else if ("teacher".equals(p)) {
 			Teacher t=teacherService.findByNameAndPasswd(student.getUsername(),student.getPasswd());
 			if (null!=t) {
 				session.put("teacher", t);
+				
+				user=userService.findByIdentity(t.getId());
+				session.put("user", user);
 				return "tea_success";
 			}
 		}else if ("admin".equals(p)) {
 			Admin a=adminService.findByNameAndPasswd(student.getUsername(),student.getPasswd());
 			if (null!=a) {
 				session.put("admin", a);
+				
+				user=userService.findByIdentity(a.getId());
+				System.out.println(user.getId());
+				session.put("user", user);
 				return "admin_success";
 			}
 		}
@@ -82,6 +97,11 @@ public class LoginAction extends BaseAction{
 	@Autowired
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
+	}
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 	
 }

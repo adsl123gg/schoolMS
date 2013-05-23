@@ -6,7 +6,7 @@
 
 	<package name="mypackage" extends="struts-default">
 	
-		<interceptors>
+		<!-- <interceptors>
 			<interceptor name="myInterceptor" class="myInterceptor" />
 			<interceptor-stack name="my">
 				<interceptor-ref name="myInterceptor"/>
@@ -14,12 +14,26 @@
 			</interceptor-stack>
 		</interceptors>	
 		
-		<default-interceptor-ref name="my"/>
+		<default-interceptor-ref name="my"/> -->
 		
 		
 		<global-results>
 			<result name="no_permission">/WEB-INF/content/no_permisson.jsp</result>
 		</global-results>
+		
+		<action name="downloadfile" class="com.eason.action.DataAction" method="download">
+			<!-- 配置下载文件的名称 -->
+			<result name="success" type="stream">
+				<!-- 下载文件的mime类型 -->
+				<!-- <param name="contentType">application/pdf</param> -->
+				<!-- 下载文件的描述 -->
+				<param name="contentDisposition">${title}</param>
+				<!-- 缓冲区大小 -->
+				<param name="bufferSize">1024</param>
+				<!-- 获取文件的流getxxx方法的名字(不包含get) -->
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 		
 	</package>
 

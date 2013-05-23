@@ -78,4 +78,14 @@ public interface Constant {
 	public final String BEFOREEXAM="beforeexam";
 	public final String AFTEREXAM="afterexam";
 	
+	//picture
+	public final String DEFAULT_STUDENT_PIC="/img/student_pic.png";
+	public final String DEFAULT_TEACHER_PIC="/img/teacher_pic.png";
+	public final String DEFAULT_ADMIN_PIC="/img/admin_pic.png";
+	
+	//data
+	public final String FILEUPLOAD_SUCCESS="fileupload_success";
+	public final String FILEUPLOAD_FAIL="fileupload_fail";
+	public final long MAXFILELENGTH=20971520l;
+	
 }
