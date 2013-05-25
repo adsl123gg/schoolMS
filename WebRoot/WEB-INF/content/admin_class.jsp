@@ -26,7 +26,7 @@
 			<c:forEach items="${clazzs}" var="clazz" >
 			 	<tr>
 					<td width="300px">
-						<span class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="${clazz.classname}">
+						<span class="btn btn-info btn-large c " rel="popover" data-content="班级人数为${fn:length(clazz.studentSet)}人" data-original-title="${clazz.classname}">
 							<a href="adminClassInfo?classid=${clazz.id}" style="color:white">
 							${clazz.classname}</a>
 							<a href="#"><i class="icon-edit"  data-toggle="modal" onclick="updateClass(this)" href="#edit"></i></a>
@@ -127,10 +127,12 @@
 			$("#updateClass").click(function(){
 				var content=$("#updateClassContent").val();
 				//alert(content+"000000"+classname);
-				if(content==classname){
+				//alert(content==classname);
+				 if(content==classname){
 					$("#updateClass_msg").show();
-					$("#updateClass_msg").children("strong").text("班级名称和原来的相同");
-				}else if(content==""){
+					$("#updateClass_msg").children("strong").text("班级名称不能和原来的相同");
+				}
+				else if(content==""){
 					$("#updateClass_msg").show();
 					$("#updateClass_msg").children("strong").text("班级名称不为空");
 				}else{

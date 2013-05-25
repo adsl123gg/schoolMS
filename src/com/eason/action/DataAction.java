@@ -52,6 +52,7 @@ public class DataAction extends BaseAction{
 	private String title;
 	
 	private String fileName;
+	private String datalist;
 	
 	@Action(value="adminDataList",results={@Result(name="success",location="/WEB-INF/content/admin_data.jsp")})
 	public String dataList(){
@@ -75,8 +76,8 @@ public class DataAction extends BaseAction{
 	}
 	
 	
-	@Action(value="fileUpload",results={@Result(name="success",type="redirectAction",params={"actionName","dataList","code","${code}"}),
-			@Result(name="input",type="redirectAction",params={"actionName","dataList","code","fileupload_fail"})			
+	@Action(value="fileUpload",results={@Result(name="success",type="redirectAction",params={"actionName","${datalist}","code","${code}"}),
+			@Result(name="input",type="redirectAction",params={"actionName","${datalist}","code","fileupload_fail"})			
 	})
 	public String fileUpload() throws Exception{
 		
@@ -112,6 +113,7 @@ public class DataAction extends BaseAction{
 			}
 			
 			User user=(User) session.get("user");
+			System.out.println(user.getId());
 			user=userService.findById(user.getId());
 			
 			Data data=new Data();
@@ -121,6 +123,14 @@ public class DataAction extends BaseAction{
 			data.setUser(user);
 			
 			dataService.save(data);
+			
+			if ("student".equals(user.getRole())) {
+				setDatalist("studentDataList");
+			}else if ("teacher".equals(user.getRole())) {
+				setDatalist("teacherDataList");
+			}else if ("admin".equals(user.getRole())) {
+				setDatalist("adminDataList");
+			}
 			
 			setCode(FILEUPLOAD_SUCCESS);
 			return SUCCESS;
@@ -208,6 +218,14 @@ public class DataAction extends BaseAction{
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getDatalist() {
+		return datalist;
+	}
+
+	public void setDatalist(String datalist) {
+		this.datalist = datalist;
 	}
 	
 	

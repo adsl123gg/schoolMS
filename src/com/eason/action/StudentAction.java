@@ -40,6 +40,7 @@ public class StudentAction extends BaseAction{
 	private List<Exam> exams;
 	private Set<Score> scores;
 	
+	
 	@Action(value="studentInfo",results={@Result(location="/WEB-INF/content/student_info.jsp")})
 	public String execute() throws Exception {
 		return SUCCESS;

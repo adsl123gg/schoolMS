@@ -30,7 +30,7 @@
         	<c:forEach items="${datas}" var="data">
         		<tr>
 		          <td class="span10"> <a href="downloadfile?fileName=${data.savename}">${data.filename}</a></td>
-				  <td>${data.createtime }</td>
+				  <td>${fn:substringBefore(data.createtime," ")}</td>
 		        </tr>
         	</c:forEach>
          
@@ -56,6 +56,7 @@
 							<a class="close" data-dismiss="alert">×</a>
 							<strong></strong>
 				        </div> -->
+				        文件大小限制为20MB
 					  </div>
 					   
 					</fieldset>

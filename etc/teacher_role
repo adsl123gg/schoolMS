@@ -14,5 +14,6 @@ deletePaper
 teacherPaperInfo
 submitPaper
 checkPaperSubmit
-
-
+teacherDataList
+fileUpload
+downloadfile

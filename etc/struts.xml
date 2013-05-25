@@ -6,7 +6,7 @@
 
 	<package name="mypackage" extends="struts-default">
 	
-		<!-- <interceptors>
+		<interceptors>
 			<interceptor name="myInterceptor" class="myInterceptor" />
 			<interceptor-stack name="my">
 				<interceptor-ref name="myInterceptor"/>
@@ -14,7 +14,7 @@
 			</interceptor-stack>
 		</interceptors>	
 		
-		<default-interceptor-ref name="my"/> -->
+		<default-interceptor-ref name="my"/>
 		
 		
 		<global-results>

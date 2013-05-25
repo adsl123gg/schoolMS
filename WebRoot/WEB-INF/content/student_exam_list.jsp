@@ -47,15 +47,15 @@
     		id=$(obj).attr("ref");
     		$.get("verifyExam",{examid:id},function(rs){
     			
-    			$.get("isSubmit",{examid:id},function(rs){
+    			/* $.get("isSubmit",{examid:id},function(rs){
     				if(rs=="submit_ok"){
     					alert("您已交卷，不能重复参加考试");
     				}else{
     					window.location.href="studentExamPaper?examid="+id;
     				}
-    			});
+    			}); */
     			
-    			/* if(rs=="beforeexam"){
+    			if(rs=="beforeexam"){
     				alert("未到考试时间，请耐心等待！");
     			}else if(rs=="afterexam"){
     				alert("考试已结束！");
@@ -77,7 +77,7 @@
     					
     				}
     			});
-    			} */
+    			}
     		});
     	}
     

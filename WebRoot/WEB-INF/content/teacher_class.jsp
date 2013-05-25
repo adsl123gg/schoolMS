@@ -15,7 +15,7 @@
 			<c:forEach items="${clazzs}" var="clazz" >
 			 	<tr>
 					<td width="300px">
-						<span class="btn btn-info btn-large c " rel="popover" data-content="电气自动化学院" data-original-title="${clazz.classname}">
+						<span class="btn btn-info btn-large c " rel="popover" data-content="班级人数为${fn:length(clazz.studentSet)}人" data-original-title="${clazz.classname}">
 							<a href="teacherClassInfo?classid=${clazz.id}" style="color:white">
 							${clazz.classname}</a>
 							<input type="hidden" id="${clazz.id}" >

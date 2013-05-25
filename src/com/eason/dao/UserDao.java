@@ -11,7 +11,6 @@ import com.eason.pojo.User;
 public class UserDao extends BaseDao<User, String>{
 
 	public User findByIdentity(String id) {
-		System.out.println(id+"====================");
 		String hql = "from User where identity_id=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, id);

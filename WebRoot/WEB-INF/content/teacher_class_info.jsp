@@ -52,7 +52,6 @@
 					<td>${clazz.classname }</td>
 					<td>${student.address }</td>
 					<td>${student.intime }</td>
-					<td>查看成绩</td>
 				</tr>
         	</c:forEach>
         </tbody>

@@ -35,10 +35,15 @@ public class MyInterceptor extends AbstractInterceptor{
 	String rs="";
 	String role="";
 	
+	
 	public MyInterceptor() throws Exception {
-		//String path=System.getProperty("user.dir")+"\\..\\etc\\";
-		String path="E:\\Git\\schoolMS\\etc\\";
+		//String path="E:\\Git\\schoolMS\\etc\\";
+		
+		String path=MyInterceptor.class.getClassLoader().getResource("").toString();
+		path=path.replace("file:/", "");
+		
 		System.out.println(path);
+		System.out.println("==================================");
 		String line="";
 		
 		File student_role=new File(path+"student_role");
@@ -65,37 +70,26 @@ public class MyInterceptor extends AbstractInterceptor{
 		ActionProxy proxy=invocation.getProxy();
 		String name=proxy.getActionName();
 		
-		if (name.equals("index")||name.equals("no_permission")) {
+		if (name.equals("index")||name.equals("no_permission")||name.equals("login")) {
 			rs=invocation.invoke();
 			return rs;
 		}
 		
-		if (name.equals("login")) {
-			role=ServletActionContext.getRequest().getParameter("p");
-			
+		
+		student=(Student) session.getAttribute("student");
+		teacher=(Teacher) session.getAttribute("teacher");
+		admin=(Admin) session.getAttribute("admin");
+		
+		if (validateActionName(name)) {
 			rs=invocation.invoke();
-			
-			if ("student".equals(role)) {
-				student=(Student) session.getAttribute("student");
-			}else if ("teacher".equals(role)) {
-				teacher=(Teacher) session.getAttribute("teacher");
-			}else if ("admin".equals(role)) {
-				admin=(Admin) session.getAttribute("admin");
-			}
-			
-			
 			return rs;
 		}
 		
-		if (validateActionName(role,name)) {
-			rs=invocation.invoke();
-			return rs;
-		}
 		return "no_permission";
 	}
 	
-	private boolean validateActionName(String role, String name) {
-		if ("student".equals(role)) {
+	private boolean validateActionName( String name) {
+		/*if ("student".equals(role)) {
 			if (studentActions.contains(name)&&student!=null) {
 				return true;
 			}
@@ -105,7 +99,17 @@ public class MyInterceptor extends AbstractInterceptor{
 			}
 		}else if ("admin".equals(role)&&admin!=null) {
 			return true;
-		}
+		}*/
+		
+			if (studentActions.contains(name)&&student!=null) {
+				return true;
+			}
+			if (teacherActions.contains(name)&&teacher!=null) {
+				return true;
+			}
+			 if (admin!=null) {
+				 return true;
+			 }
 		
 		return false;
 	}
